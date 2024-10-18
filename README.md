@@ -1,2 +1,7 @@
-# SM-CI
-Spatial Mapping of Single Cells via Correlation and Importance between Cells and Spots
+# Spatial Mapping of Single Cells via Correlation and Importance between Cells and Spots
+SM-CI achieves precise spatial mapping of cells to spots by integrating scRNA-seq and ST data, and it obtains the deconvolution results of spatial spots. This method establishes a dropout event handling strategy and proposes criteria for evaluating the importance of cells and spots based on gene expression and spatial information. Figure \ref{fig1} illustrates the overall workflow of SM-CI.
+First, the K-nearest neighbors interpolation method is applied to handle dropout events in scRNA-seq and ST data. ST data is processed based on the relationship between gene expression and spatial positions among spots (Algorithm 1), while scRNA-seq data is handled according to neighboring relationships within the same cell type (Algorithm 2).
+Second, to address the difference in cell numbers between scRNA-seq and ST data, dimensionality expansion is applied to the spots in ST data, and random sampling is conducted for scRNA-seq data while retaining common genes, resulting in an aligned matrix that ensures consistency in gene and spot/cell numbers.
+Next, distance matrix for spot locations, spot-spot Pearson correlation matrix, cell-cell Pearson correlation matrix, and cell-spot Pearson correlation matrix are constructed based on the aligned matrix. Calculate the scores of spots and cells using a comprehensive importance evaluation criterion.
+Finally, a cost matrix for a linear programming model is constructed based on the importance scores of spots and cells, as well as the cell-spot correlation matrix, thereby determining the one-to-one correspondence between cells and spots and achieving the mapping of single cells to spatial spots.
+
