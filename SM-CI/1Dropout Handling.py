@@ -92,7 +92,7 @@ for cell_type in celltypes.iloc[:, 0].unique():
                 nan_indices = np.where(np.isnan(gene_expression))[0]
 
                 np.random.seed(1)
-                selected_nan_indices = np.random.choice(nan_indices, size=int(1 * len(nan_indices)), replace=False)
+                selected_nan_indices = np.random.choice(nan_indices, size=int(0.5 * len(nan_indices)), replace=False)
 
                 if len(selected_nan_indices) > 0:
 
@@ -108,7 +108,7 @@ for cell_type in celltypes.iloc[:, 0].unique():
                 gene_expression = sc_data[cell].values
                 nan_indices = np.where(np.isnan(gene_expression))[0]
                 np.random.seed(1)
-                selected_nan_indices = np.random.choice(nan_indices, size=int(1 * len(nan_indices)), replace=False)
+                selected_nan_indices = np.random.choice(nan_indices, size=int(0.5 * len(nan_indices)), replace=False)
 
                 if len(selected_nan_indices) > 0:
 
@@ -131,6 +131,10 @@ data.replace(0, np.nan, inplace=True)
 gene_expression_ratio = data.notna().mean(axis=1)
 filtered_data = data[gene_expression_ratio >= 0.1]
 cell_expression_ratio = filtered_data.notna().mean(axis=0)
+
+bins = np.arange(0, 1.1, 0.1)
+hist, bin_edges = np.histogram(cell_expression_ratio, bins=bins)
+max_index = np.argmax(hist)
 max_interval_start2 = bin_edges[max_index - 3]
 max_interval_end2 = bin_edges[max_index - 2]
 max_interval_start1 = bin_edges[max_index - 2]
@@ -155,7 +159,7 @@ for spot in st_data.columns:
     nan_indices = np.where(np.isnan(gene_expression))[0]
     np.random.seed(1)
     selected_nan_indices = np.random.choice(nan_indices,
-                                            size=int(1 * len(nan_indices)), replace=False)
+                                            size=int(0.5 * len(nan_indices)), replace=False)
 
     if len(selected_nan_indices) > 0:
         non_nan_indices = np.where(~np.isnan(gene_expression))[0]
