@@ -13,6 +13,10 @@ B = cellpearson_row_l1_norms.values @ spotEuclidean_col_l1_norms.values
 B = pd.DataFrame(B,
                     index=cellpearson.index,
                     columns=spotEuclidean.columns)
+
+STSCpearson = STSCpearson.apply(normalize_0_1, axis=0)
+B = B.apply(normalize_0_1, axis=0)
+
 A = 0.5 * STSCpearson.values + 0.5 * STSCpearson.values * (1 / (B.values + 1))
 
 A = pd.DataFrame(A, index=STSCpearson.index, columns=STSCpearson.columns)
