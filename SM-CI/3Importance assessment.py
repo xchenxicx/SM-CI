@@ -47,10 +47,6 @@ def normalize_0_1(x):
     else:
         return (x - np.min(x)) / range_val
 
-STSCpearson = STSCpearson.apply(normalize_0_1, axis=0)
-cellpearson = cellpearson.apply(normalize_0_1, axis=0)
-spotEuclidean = spotEuclidean.apply(normalize_0_1, axis=0)
-
 print("\nspotEuclidean:")
 print(spotEuclidean)
 print("\nSTSCpearson:")
